@@ -13,7 +13,7 @@ function Canvas() {
   const canvas = document.createElement("canvas"); // Create a canvas element
   const width = (canvas.width = 800); // Set canvas width
   const height = (canvas.height = 800); // Set canvas height
-  canvas.style.backgroundColor = "#3D3B40"; // Set background color
+  canvas.style.backgroundColor = "#0B60B0"; // Set background color
   context = canvas.getContext("2d"); // Get canvas 2D rendering context
   cols = Math.floor(width / w); // Calculate number of columns
   rows = Math.floor(height / w); // Calculate number of rows
@@ -51,7 +51,7 @@ class Cell {
   show() {
     let x = this.column * w; // X-coordinate of the cell
     let y = this.row * w; // Y-coordinate of the cell
-    context.strokeStyle = "#3652AD"; // Set stroke color
+    context.strokeStyle = "#3D3B40"; // Set stroke color
     context.lineWidth = 2; // Set line width
     // Draw walls based on their existence
     if (this.walls[0]) {
@@ -105,7 +105,7 @@ class Cell {
   highlight() {
     let x = this.column * w;
     let y = this.row * w;
-    context.fillStyle = "#294B29"; // Set fill color
+    context.fillStyle = "#352F44"; // Set fill color
     context.fillRect(x, y, w, w); // Fill the cell with color
   }
 }
