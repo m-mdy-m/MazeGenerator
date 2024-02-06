@@ -33,10 +33,12 @@ function Cell(column, row) {
     context.strokeStyle = "#607274";
     context.lineWidth = 2;
     context.beginPath();
-    context.moveTo(x, y);
-    context.lineTo(x + w, y);
+    context.moveTo(x,     y    );
+    context.lineTo(x + w, y    );
+    context.lineTo(x + w, y + w);
+    context.lineTo(x,     y + w);
+    context.lineTo(x,     y    );
     context.stroke();
-    context.strokeStyle = "#607274";
   };
 }
 function draw() {
