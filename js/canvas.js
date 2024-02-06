@@ -8,7 +8,7 @@ function Canvas() {
   const canvas = document.createElement("canvas");
   const width = (canvas.width = 800);
   const height = (canvas.height = 800);
-
+  canvas.style.backgroundColor = "#3D3B40";
   context = canvas.getContext("2d");
   cols = Math.floor(width / w);
   rows = Math.floor(height / w);
@@ -30,10 +30,13 @@ function Cell(column, row) {
   this.show = function () {
     let x = this.column * w;
     let y = this.row * w;
-    context.fillStyle = "#3D3B40";
     context.strokeStyle = "#607274";
-    context.fillRect(x, y, w, w);
-    context.strokeRect(x, y, w, w);
+    context.lineWidth = 2;
+    context.beginPath();
+    context.moveTo(x, y);
+    context.lineTo(x + w, y);
+    context.stroke();
+    context.strokeStyle = "#607274";
   };
 }
 function draw() {
