@@ -2,8 +2,8 @@ let cols,
   rows,
   w = 80,
   grid = [],
-  context = "";
-
+  context = "",
+  show = null;
 function Canvas() {
   const canvas = document.createElement("canvas");
   const width = (canvas.width = 800);
@@ -16,32 +16,43 @@ function Canvas() {
 
   createCell(rows, cols);
 }
-function createCell(rows, cols) {
-  for (let x = 0; x < rows; x++) {
-    for (let y = 0; y < cols; y++) {
-      let cell = new Cell(y, x);
-      grid.push(cell);
-    }
+
+class Cell {
+  constructor(column, row) {
+    this.column = column;
+    this.row = row;
   }
-}
-function Cell(column, row) {
-  this.column = column;
-  this.row = row;
-  this.walls = [true,true,true,true] // top right bottom left 
-  this.show = function () {
+  show() {
+    const walls = [true, true, true, true]; // top right left left bottom
     let x = this.column * w;
     let y = this.row * w;
     context.strokeStyle = "#607274";
     context.lineWidth = 2;
     context.beginPath();
-    context.moveTo(x,     y    ); 
-    context.lineTo(x + w, y    ); // top 
-    context.lineTo(x + w, y + w); // right
-    context.lineTo(x,     y + w); // bottom
-    context.lineTo(x,     y    ); // left
+    context.moveTo(x, y);
+    if (walls[0]) {
+      context.lineTo(x, y); // left
+    }
+    if (walls[1]) {
+      context.lineTo(x + w, y); // top
+    }
+    if (walls[2]) {
+      context.lineTo(x + w, y + w); // right
+    }
+    if (walls[3]) {
+      context.lineTo(x, y + w); // bottom
+    }
     context.stroke();
-  };
+  }
 }
+function createCell(rows, cols) {
+  for (let x = 0; x < rows; x++) {
+    for (let y = 0; y < cols; y++) {
+      grid.push(new Cell(y, x));
+    }
+  }
+}
+//
 function draw() {
   for (let i = 0; i < grid.length; i++) {
     grid[i].show();
