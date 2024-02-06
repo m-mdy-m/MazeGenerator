@@ -27,17 +27,18 @@ function createCell(rows, cols) {
 function Cell(column, row) {
   this.column = column;
   this.row = row;
+  this.walls = [true,true,true,true] // top right bottom left 
   this.show = function () {
     let x = this.column * w;
     let y = this.row * w;
     context.strokeStyle = "#607274";
     context.lineWidth = 2;
     context.beginPath();
-    context.moveTo(x,     y    );
-    context.lineTo(x + w, y    );
-    context.lineTo(x + w, y + w);
-    context.lineTo(x,     y + w);
-    context.lineTo(x,     y    );
+    context.moveTo(x,     y    ); 
+    context.lineTo(x + w, y    ); // top 
+    context.lineTo(x + w, y + w); // right
+    context.lineTo(x,     y + w); // bottom
+    context.lineTo(x,     y    ); // left
     context.stroke();
   };
 }
