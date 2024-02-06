@@ -1,7 +1,9 @@
 let cols,
   rows,
-  w = 80,
+  w = 40,
   grid = [],
+  stack = [],
+  speed = 50,
   context,
   current;
 function Canvas() {
@@ -39,7 +41,7 @@ class Cell {
   show() {
     let x = this.column * w;
     let y = this.row * w;
-    context.strokeStyle = "#607274";
+    context.strokeStyle = "#3652AD";
     context.lineWidth = 2;
     if (this.walls[0]) {
       line(x, y, x + w, y); // top
@@ -54,7 +56,7 @@ class Cell {
       line(x, y + w, x, y); // left
     }
     if (this.visited) {
-      context.fillStyle = "#FF004D";
+      context.fillStyle = "#474F7A";
       context.strokeStyle = "#fff";
       context.fillRect(x, y, w, w);
     }
@@ -126,11 +128,16 @@ function draw() {
   current.highlight();
   if (next) {
     next.visited = true;
+    /// STEP 2
+    stack.push(current);
     /// STEP 3
     removeWalls(current, next);
     /// STEP 4
     current = next;
-    setTimeout(draw, 300);
+    setTimeout(draw, speed);
+  } else if (stack.length > 0) {
+    current = stack.pop();
+    setTimeout(draw, speed);
   }
 }
 Canvas();
