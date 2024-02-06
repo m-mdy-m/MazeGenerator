@@ -1,6 +1,6 @@
 let cols,
   rows,
-  w = 10,
+  w = 80,
   grid = [],
   context,
   current;
@@ -79,7 +79,7 @@ class Cell {
       neighbors.push(left);
     }
     if (neighbors.length > 0) {
-      return neighbors[Math.floor(Math.random(0, neighbors.length))];
+      return neighbors[Math.floor(Math.random() * neighbors.length)];
     } else {
       return undefined;
     }
@@ -98,16 +98,12 @@ function draw() {
     grid[i].show();
   }
   current.visited = true;
-  const nxt = current.check();
-  if (nxt) {
-    nxt.visited = true;
-    current = nxt;
+  const next = current.check();
+  if (next) {
+    next.visited = true;
+    current = next;
+    requestAnimationFrame(draw);
   }
 }
-function animate() {
-  draw();
-  requestAnimationFrame(animate);
-}
-
 Canvas();
-animate();
+draw();
