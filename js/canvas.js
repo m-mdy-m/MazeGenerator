@@ -28,22 +28,22 @@ class Cell {
     this.row = row;
   }
   show() {
-    const walls = [true, true, true, true]; // top right left  bottom
+    const walls = [true, true, true, true]; // top right bottom  left
     let x = this.column * w;
     let y = this.row * w;
     context.strokeStyle = "#607274";
     context.lineWidth = 2;
     if (walls[0]) {
-      line(x, y, x + w, y);
+      line(x,     y,     x + w, y); // top
     }
     if (walls[1]) {
-      line(x + w, y, x + w, y + w);
+      line(x + w, y,     x + w, y + w); // right
     }
     if (walls[2]) {
-      line(x + w, y + w, x, y + w);
+      line(x + w, y + w, x,     y + w); // bottom
     }
     if (walls[3]) {
-      line(x, y + w, x, y);
+      line(x,     y + w, x,     y); // left 
     }
   }
 }
