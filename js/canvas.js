@@ -31,7 +31,7 @@ function Cell(column, row) {
     let x = this.column * w;
     let y = this.row * w;
     context.fillStyle = "#3D3B40";
-    // context.strokeStyle = "#000000";
+    context.strokeStyle = "#607274";
     context.fillRect(x, y, w, w);
     context.strokeRect(x, y, w, w);
   };
