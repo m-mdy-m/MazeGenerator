@@ -1,0 +1,25 @@
+{
+  "name": "mazegenerator",
+  "version": "1.0.0",
+  "description": "MazeGenerator: Create intricate mazes using BFS algorithm. Fun and challenging puzzle game!",
+  "main": "index.js",
+  "scripts": {
+    "test": "node "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-mdy-m/MazeGenerator.git"
+  },
+  "keywords": [
+    "maze",
+    "machine",
+    "learning",
+    "ai"
+  ],
+  "author": "Mahdi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/m-mdy-m/MazeGenerator/issues"
+  },
+  "homepage": "https://github.com/m-mdy-m/MazeGenerator#readme"
+}
