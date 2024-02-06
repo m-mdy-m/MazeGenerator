@@ -16,33 +16,27 @@ function Canvas() {
 
   createCell(rows, cols);
 }
-
+function line(moveX, moveY, LineX, LineY) {
+  context.beginPath();
+  context.moveTo(moveX, moveY);
+  context.lineTo(LineX, LineY);
+  context.stroke();
+}
 class Cell {
   constructor(column, row) {
     this.column = column;
     this.row = row;
   }
   show() {
-    const walls = [true, true, true, true]; // top right left left bottom
+    const walls = [true, true, true, true]; // top right left  bottom
     let x = this.column * w;
     let y = this.row * w;
     context.strokeStyle = "#607274";
     context.lineWidth = 2;
-    context.beginPath();
-    context.moveTo(x, y);
-    if (walls[0]) {
-      context.lineTo(x, y); // left
-    }
-    if (walls[1]) {
-      context.lineTo(x + w, y); // top
-    }
-    if (walls[2]) {
-      context.lineTo(x + w, y + w); // right
-    }
-    if (walls[3]) {
-      context.lineTo(x, y + w); // bottom
-    }
-    context.stroke();
+    line(x,     y,      x + w  , y);
+    line(x + w, y,      x + w  , y + w);
+    line(x + w, y + w,  x,      y + w);
+    line(x,     y + w,  x,      y);
   }
 }
 function createCell(rows, cols) {
