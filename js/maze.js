@@ -57,7 +57,6 @@ class Cell {
       context.fillStyle = "#FF004D";
       context.strokeStyle = "#fff";
       context.fillRect(x, y, w, w);
-      context.strokeRect(x, y, w, w);
     }
   }
   check() {
@@ -96,7 +95,6 @@ function createCell(rows, cols) {
 }
 function removeWalls(a, b) {
   let x = a.column - b.column;
-  console.log("a =>", a);
   if (x === 1) {
   a.walls[3] = false;
   b.walls[1] = false;
