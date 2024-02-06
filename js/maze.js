@@ -1,6 +1,6 @@
 let cols,
   rows,
-  w = 80,
+  w = 10,
   grid = [],
   context,
   current;
@@ -24,8 +24,8 @@ function line(moveX, moveY, LineX, LineY) {
 }
 
 function getIndex(column, row) {
-  if (column < 0 || row <0 || column > cols-1 || row>rows-1) {
-    return -1
+  if (column < 0 || row < 0 || column > cols - 1 || row > rows - 1) {
+    return -1;
   }
   return column + row * cols;
 }
@@ -79,9 +79,9 @@ class Cell {
       neighbors.push(left);
     }
     if (neighbors.length > 0) {
-      return neighbors[Math.floor(Math.random(0,neighbors.length))]
-    }else{
-      return undefined
+      return neighbors[Math.floor(Math.random(0, neighbors.length))];
+    } else {
+      return undefined;
     }
   }
 }
@@ -98,12 +98,16 @@ function draw() {
     grid[i].show();
   }
   current.visited = true;
-  current.check();
+  const nxt = current.check();
+  if (nxt) {
+    nxt.visited = true;
+    current = nxt;
+  }
 }
-// function animate() {
-// requestAnimationFrame(animate);
-// }
+function animate() {
+  draw();
+  requestAnimationFrame(animate);
+}
 
 Canvas();
-draw();
-// animate();
+animate();
