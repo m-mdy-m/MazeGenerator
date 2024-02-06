@@ -2,8 +2,8 @@ let cols,
   rows,
   w = 80,
   grid = [],
-  context = "",
-  show = null;
+  context,
+  current;
 function Canvas() {
   const canvas = document.createElement("canvas");
   const width = (canvas.width = 800);
@@ -26,6 +26,7 @@ class Cell {
   constructor(column, row) {
     this.column = column;
     this.row = row;
+    this.visited = false;
   }
   show() {
     const walls = [true, true, true, true]; // top right bottom  left
@@ -34,16 +35,22 @@ class Cell {
     context.strokeStyle = "#607274";
     context.lineWidth = 2;
     if (walls[0]) {
-      line(x,     y,     x + w, y); // top
+      line(x, y, x + w, y); // top
     }
     if (walls[1]) {
-      line(x + w, y,     x + w, y + w); // right
+      line(x + w, y, x + w, y + w); // right
     }
     if (walls[2]) {
-      line(x + w, y + w, x,     y + w); // bottom
+      line(x + w, y + w, x, y + w); // bottom
     }
     if (walls[3]) {
-      line(x,     y + w, x,     y); // left 
+      line(x, y + w, x, y); // left
+    }
+    if (this.visited) {
+      context.fillStyle = "#FF004D";
+      context.strokeStyle = "#fff";
+      context.fillRect(x, y, w, w);
+      context.strokeRect(x, y, w, w);
     }
   }
 }
@@ -53,13 +60,18 @@ function createCell(rows, cols) {
       grid.push(new Cell(y, x));
     }
   }
+  current = grid[0];
 }
-//
 function draw() {
   for (let i = 0; i < grid.length; i++) {
     grid[i].show();
   }
+  current.visited = true;
+}
+function animate() {
+  draw();
+  requestAnimationFrame(animate);
 }
 
 Canvas();
-draw();
+animate();
