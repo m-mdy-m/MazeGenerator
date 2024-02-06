@@ -93,14 +93,36 @@ function createCell(rows, cols) {
   }
   current = grid[0];
 }
+function removeWalls(a, b) {
+  let x = a.column - b.column;
+  if (x === 1) {
+    a.walls[3] = false;
+    b.walls[1] = false;
+  } else if (x === -1) {
+    a.walls[1] = false;
+    b.walls[3] = false;
+  }
+  let y = a.row - b.row;
+  if (y === 1) {
+    a.walls[3] = false;
+    b.walls[1] = false;
+  } else if (y === -1) {
+    a.walls[1] = false;
+    b.walls[3] = false;
+  }
+}
 function draw() {
   for (let i = 0; i < grid.length; i++) {
     grid[i].show();
   }
   current.visited = true;
+  /// STEP 1
   const next = current.check();
   if (next) {
     next.visited = true;
+    /// STEP 3
+    removeWalls(current, next);
+    /// STEP 4
     current = next;
     requestAnimationFrame(draw);
   }
