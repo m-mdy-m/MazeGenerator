@@ -24,6 +24,9 @@ function line(moveX, moveY, LineX, LineY) {
 }
 
 function getIndex(column, row) {
+  if (column < 0 || row <0 || column > cols-1 || row>rows-1) {
+    return -1
+  }
   return column + row * cols;
 }
 class Cell {
@@ -63,17 +66,22 @@ class Cell {
     let right = grid[getIndex(this.column + 1, this.row)];
     let bottom = grid[getIndex(this.column, this.row + 1)];
     let left = grid[getIndex(this.column - 1, this.row)];
-    if (!top.visited) {
+    if (top && !top.visited) {
       neighbors.push(top);
     }
-    if (!right.visited) {
+    if (right && !right.visited) {
       neighbors.push(right);
     }
-    if (!bottom.visited) {
+    if (bottom && !bottom.visited) {
       neighbors.push(bottom);
     }
-    if (!left.visited) {
+    if (left && !left.visited) {
       neighbors.push(left);
+    }
+    if (neighbors.length > 0) {
+      return neighbors[Math.floor(Math.random(0,neighbors.length))]
+    }else{
+      return undefined
     }
   }
 }
