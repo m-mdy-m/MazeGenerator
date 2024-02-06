@@ -34,23 +34,23 @@ class Cell {
     this.column = column;
     this.row = row;
     this.visited = false;
+    this.walls = [true, true, true, true]; // top right bottom  left
   }
   show() {
-    const walls = [true, true, true, true]; // top right bottom  left
     let x = this.column * w;
     let y = this.row * w;
     context.strokeStyle = "#607274";
     context.lineWidth = 2;
-    if (walls[0]) {
+    if (this.walls[0]) {
       line(x, y, x + w, y); // top
     }
-    if (walls[1]) {
+    if (this.walls[1]) {
       line(x + w, y, x + w, y + w); // right
     }
-    if (walls[2]) {
+    if (this.walls[2]) {
       line(x + w, y + w, x, y + w); // bottom
     }
-    if (walls[3]) {
+    if (this.walls[3]) {
       line(x, y + w, x, y); // left
     }
     if (this.visited) {
@@ -62,6 +62,7 @@ class Cell {
   }
   check() {
     let neighbors = [];
+    // console.log('s =>',neighbors);
     let top = grid[getIndex(this.column, this.row - 1)];
     let right = grid[getIndex(this.column + 1, this.row)];
     let bottom = grid[getIndex(this.column, this.row + 1)];
@@ -95,20 +96,21 @@ function createCell(rows, cols) {
 }
 function removeWalls(a, b) {
   let x = a.column - b.column;
+  console.log("a =>", a);
   if (x === 1) {
-    a.walls[3] = false;
-    b.walls[1] = false;
+  a.walls[3] = false;
+  b.walls[1] = false;
   } else if (x === -1) {
-    a.walls[1] = false;
-    b.walls[3] = false;
+  a.walls[1] = false;
+  b.walls[3] = false;
   }
   let y = a.row - b.row;
   if (y === 1) {
-    a.walls[3] = false;
-    b.walls[1] = false;
+  a.walls[0] = false;
+  b.walls[2] = false;
   } else if (y === -1) {
-    a.walls[1] = false;
-    b.walls[3] = false;
+  a.walls[2] = false;
+  b.walls[0] = false;
   }
 }
 function draw() {
