@@ -22,6 +22,10 @@ function line(moveX, moveY, LineX, LineY) {
   context.lineTo(LineX, LineY);
   context.stroke();
 }
+
+function getIndex(column, row) {
+  return column + row * cols;
+}
 class Cell {
   constructor(column, row) {
     this.column = column;
@@ -53,6 +57,25 @@ class Cell {
       context.strokeRect(x, y, w, w);
     }
   }
+  check() {
+    let neighbors = [];
+    let top = grid[getIndex(this.column, this.row - 1)];
+    let right = grid[getIndex(this.column + 1, this.row)];
+    let bottom = grid[getIndex(this.column, this.row + 1)];
+    let left = grid[getIndex(this.column - 1, this.row)];
+    if (!top.visited) {
+      neighbors.push(top);
+    }
+    if (!right.visited) {
+      neighbors.push(right);
+    }
+    if (!bottom.visited) {
+      neighbors.push(bottom);
+    }
+    if (!left.visited) {
+      neighbors.push(left);
+    }
+  }
 }
 function createCell(rows, cols) {
   for (let x = 0; x < rows; x++) {
@@ -67,11 +90,12 @@ function draw() {
     grid[i].show();
   }
   current.visited = true;
+  current.check();
 }
-function animate() {
-  draw();
-  requestAnimationFrame(animate);
-}
+// function animate() {
+// requestAnimationFrame(animate);
+// }
 
 Canvas();
-animate();
+draw();
+// animate();
