@@ -61,7 +61,6 @@ class Cell {
   }
   check() {
     let neighbors = [];
-    // console.log('s =>',neighbors);
     let top = grid[getIndex(this.column, this.row - 1)];
     let right = grid[getIndex(this.column + 1, this.row)];
     let bottom = grid[getIndex(this.column, this.row + 1)];
@@ -84,6 +83,12 @@ class Cell {
       return undefined;
     }
   }
+  highlight() {
+    let x = this.column * w;
+    let y = this.row * w;
+    context.fillStyle = "#294B29";
+    context.fillRect(x, y, w, w);
+  }
 }
 function createCell(rows, cols) {
   for (let x = 0; x < rows; x++) {
@@ -96,19 +101,19 @@ function createCell(rows, cols) {
 function removeWalls(a, b) {
   let x = a.column - b.column;
   if (x === 1) {
-  a.walls[3] = false;
-  b.walls[1] = false;
+    a.walls[3] = false;
+    b.walls[1] = false;
   } else if (x === -1) {
-  a.walls[1] = false;
-  b.walls[3] = false;
+    a.walls[1] = false;
+    b.walls[3] = false;
   }
   let y = a.row - b.row;
   if (y === 1) {
-  a.walls[0] = false;
-  b.walls[2] = false;
+    a.walls[0] = false;
+    b.walls[2] = false;
   } else if (y === -1) {
-  a.walls[2] = false;
-  b.walls[0] = false;
+    a.walls[2] = false;
+    b.walls[0] = false;
   }
 }
 function draw() {
@@ -118,13 +123,14 @@ function draw() {
   current.visited = true;
   /// STEP 1
   const next = current.check();
+  current.highlight();
   if (next) {
     next.visited = true;
     /// STEP 3
     removeWalls(current, next);
     /// STEP 4
     current = next;
-    requestAnimationFrame(draw);
+    setTimeout(draw, 300);
   }
 }
 Canvas();
