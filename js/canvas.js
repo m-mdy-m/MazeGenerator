@@ -12,8 +12,6 @@ function Canvas() {
   context = canvas.getContext("2d");
   cols = Math.floor(width / w);
   rows = Math.floor(height / w);
-
-  canvas.style.background = "#6962AD";
   document.body.appendChild(canvas);
 
   createCell(rows, cols);
@@ -32,8 +30,8 @@ function Cell(column, row) {
   this.show = function () {
     let x = this.column * w;
     let y = this.row * w;
-    context.fillStyle = "#FFFFFF";
-    context.strokeStyle = "#000000";
+    context.fillStyle = "#3D3B40";
+    // context.strokeStyle = "#000000";
     context.fillRect(x, y, w, w);
     context.strokeRect(x, y, w, w);
   };
